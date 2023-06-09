@@ -6,5 +6,19 @@ class KnightPathFinder
         self.build_move_tree
     end
 
-    
+	def self.valid_moves(pos)
+		@considered_positions = []
+		@considered_positions << pos
+	end
+
+	def new_move_positions(pos)
+		if !@considered_positions.include?(pos)
+			KnightPathFinder.valid_moves(pos)
+		end
+	end
+
+	def build_move_tree 
+		queue = []
+		queue << @self.root_node
+	end
 end
