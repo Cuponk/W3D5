@@ -40,6 +40,21 @@ class KnightPathFinder
             end
         end
 	end
+
+    def find_path(end_pos)
+        queue = []
+        queue << @root_node
+        while !queue.empty?
+            shift = queue.shift
+            if shift.value == end_pos
+                return shift
+            else
+                shift.children.each { |i| queue << i }
+            end
+            
+        end
+        return nil 
+    end
 end
 
 test = KnightPathFinder.new([0, 0])
@@ -47,5 +62,5 @@ test = KnightPathFinder.new([0, 0])
 # p KnightPathFinder.valid_moves([4, 3])
 # p test.new_move_positions([4, 3])
 # p test.new_move_positions([2, 2])
-p test.root_node
+p test.find_path([4,2])
 
