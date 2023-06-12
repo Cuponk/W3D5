@@ -47,7 +47,7 @@ class KnightPathFinder
         while !queue.empty?
             shift = queue.shift
             if shift.value == end_pos
-                return shift
+				return trace_path_back(shift)
             else
                 shift.children.each { |i| queue << i }
             end
@@ -55,12 +55,29 @@ class KnightPathFinder
         end
         return nil 
     end
-end
 
-test = KnightPathFinder.new([0, 0])
+	def trace_path_back(node)
+		node_arr = []
+		value_arr = []
+
+		node_arr << node.parent
+		value_arr << node.parent.value
+		while !node_arr[0].parent.nil?		
+			node_arr.unshift(node_arr[0].parent)
+			value_arr.unshift(node_arr[0].value)
+		end
+		node_arr << node 
+		value_arr << node.value
+		value_arr
+	end
+end
+# test = KnightPathFinder.new([0, 0])
 
 # p KnightPathFinder.valid_moves([4, 3])
 # p test.new_move_positions([4, 3])
 # p test.new_move_positions([2, 2])
-p test.find_path([4,2])
+# p test.find_path([4,2])
+kpf = KnightPathFinder.new([0, 0])
+p kpf.find_path([7, 6]) # => [[0, 0], [1, 2], [2, 4], [3, 6], [5, 5], [7, 6]]
+p kpf.find_path([6, 2]) # => [[0, 0], [1, 2], [2, 0], [4, 1], [6, 2]]
 
